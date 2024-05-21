@@ -19,23 +19,11 @@ def minus:
     .data[.dp] -= 1;
 
 def lsquare:
-    def w:
-        if .ip >= (.prog | length) then error("no matching ] for [")
-        elif .prog[.ip] == "]" and .br == 0 then (.loops = .loops[:-1])
-        elif .prog[.ip] == "[" then .br += 1 | .ip += 1 | w
-        elif .prog[.ip] == "]" then .br -= 1 | .ip += 1 | w
-        else .ip += 1 | w end;
-    if .data[.dp] == 0 then .ip += 1 | w
+    if .data[.dp] == 0 then .ip = (.jumps[.ip | tostring] | tonumber)
     else . end;
 
 def rsquare:
-    def w:
-        if .ip < 0 then error("no matching [ for ]")
-        elif .prog[.ip] == "[" and .br == 0 then .
-        elif .prog[.ip] == "[" then .br += 1 | .ip -= 1 | w
-        elif .prog[.ip] == "]" then .br -= 1 | .ip -= 1 | w
-        else .ip -= 1 | w end;
-    if .data[.dp] != 0 then .ip -= 1 | w
+    if .data[.dp] != 0 then .ip = (.jumps[.ip | tostring] | tonumber)
     else . end;
 
 def dot:
@@ -65,6 +53,21 @@ def exec:
     if .ip >= (.prog | length) then empty
     else exec_step | .ip += 1 | exec end;
 
+def labels:
+    def w:
+        if .ip >= (.prog | length) then .jumps 
+        elif .prog[.ip] == "[" then (.stack = .stack + [.ip | tostring]) | .ip += 1 | w
+        elif .prog[.ip] == "]" and (.stack | length) == 0 then error("unmatched ]")
+        elif .prog[.ip] == "]" then 
+            .jumps[.ip | tostring] = .stack[-1] |
+            .jumps[.stack[-1]] = (.ip | tostring) |
+            .stack |= .[:-1] |
+            .ip += 1 |
+            w
+        else .ip += 1 | w end;
+    .jumps = ({ ip, prog, stack: [], jumps: {} } | w);
+
+
 {
     ip: 0,
     dp: 0,
@@ -72,4 +75,4 @@ def exec:
     input: ($ARGS.named.input // "") | explode,
     prog: . | split(""),
     br: 0,
-} | exec
+} | labels | exec
