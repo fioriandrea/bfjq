@@ -1,4 +1,4 @@
-# bf-jq
+# bfjq
 
 Implementation of [Brainfuck](https://brainfuck.org/) written in [jq](https://jqlang.github.io/jq/).
 
