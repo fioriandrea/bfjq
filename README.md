@@ -5,9 +5,10 @@ Implementation of [Brainfuck](https://brainfuck.org/) written in [jq](https://jq
 # Usage
 
 ```sh
-# program is the bf program
-# input for the comma (,) command is provided through stdin
-./bf.jq --rawfile program examples/wc.b < bf.jq
+# input for the comma (,) command is provided --rawfile input <filename>
+./bf.jq examples/wc.b --rawfile input bf.jq
+# to read from stdin
+./bf.jq examples/wc.b --rawfile input /dev/stdin < bf.jq
 ```
 
 The difference between `bf.jq` and `bf-labels.jq` is that `bf-labels.jq` precomputes positions of matching square brackets and thus is the faster implementation. They are otherwise the same.

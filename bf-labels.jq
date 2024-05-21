@@ -72,7 +72,7 @@ def labels:
     ip: 0,
     dp: 0,
     data: ($ARGS.named.data // [0]),
-    input: . | explode,
-    prog: $program | split(""),
+    input: ($ARGS.named.input // "") | explode,
+    prog: . | split(""),
     br: 0,
 } | labels | exec
