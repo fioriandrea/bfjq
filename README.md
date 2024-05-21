@@ -14,7 +14,7 @@ The difference between `bf.jq` and `bf-labels.jq` is that `bf-labels.jq` precomp
 
 # Examples
 
-Example brainfuck programs can be found in the `examples` directory. These examples were taken from [the brainfuck website](https://brainfuck.org/) and are licensed under [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+Example brainfuck programs can be found in the `examples` directory. These examples were taken from [brainfuck.org](https://brainfuck.org/) and are licensed under [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
 
 # License
 
