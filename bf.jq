@@ -46,10 +46,6 @@ def exec_step:
     else . end;
 
 def exec:
-    . as $in |
-    { ip } |
-    #debug |
-    $in |
     if .ip >= (.prog | length) then empty
     else exec_step | .ip += 1 | exec end;
 
@@ -74,5 +70,4 @@ def labels:
     data: ($ARGS.named.data // [0]),
     input: ($ARGS.named.input // "") | explode,
     prog: . | split(""),
-    br: 0,
 } | labels | exec
