@@ -4,6 +4,8 @@ Implementation of [Brainfuck](https://brainfuck.org/) written in [jq](https://jq
 
 # Usage
 
+The interpreter was tested on `jq` version 1.7.1.
+
 ```sh
 # input for the comma (,) command is provided --rawfile input <filename>
 ./bf.jq examples/wc.b --rawfile input bf.jq
